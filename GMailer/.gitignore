@@ -1,0 +1,7 @@
+.env
+.env*
+*.json
+__pycache__/
+*.pyc
+sgc.png
+*.csv
