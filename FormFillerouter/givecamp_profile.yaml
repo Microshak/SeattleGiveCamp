@@ -1,0 +1,110 @@
+# =============================================================================
+# Seattle GiveCamp — Organization Profile
+# Auto-generated from mikeTODO.md on 2026-06-06
+# =============================================================================
+
+org:
+  legal_name: "Seattle GiveCamp"
+  type: "501(c)(3) nonprofit"
+  ein: "47-2723225"
+  website: "https://seattlegivecamp.org"
+  year_founded: 2011
+  state_of_incorporation: "Washington"
+
+contact:
+  name: "Mike Roshak"
+  title: "Membership Coordinator"
+  email: "michael@seattlegivecamp.org"
+  phone: "(425) 405-0301"
+  mailing_address:
+    street: "26226 131st pl se"
+    city: "Kent"
+    state: "WA"
+    zip: "98030"
+
+event:
+  name: "Seattle GiveCamp"
+  location: "Redmond WA"
+  date_2026: "October 17th, 2026"
+  nonprofits_served_per_year: 8
+  volunteers_per_year: 100
+  years_running: 15
+
+mission:
+  one_sentence: "To provide pro bono software development to Seattle-area non-profits."
+  paragraph: >
+    Seattle GiveCamp is a volunteer-led, registered 501(c)(3) nonprofit organization
+    dedicated to providing pro bono software development and technology solutions to
+    Seattle-area charities. By hosting high-impact, weekend-long hackathons, the
+    organization brings together local software developers, designers, database
+    administrators, and project managers to build websites, mobile apps, and custom
+    database tools for nonprofits that lack dedicated tech budgets. Since 2011,
+    Seattle GiveCamp has supported over 150 local organizations, transforming
+    community goodwill into functional digital tools and delivering hundreds of
+    thousands of dollars in professional technical services back into the regional
+    nonprofit ecosystem.
+  impact_statement: >
+    Seattle GiveCamp bridges the tech equity gap by translating professional technical
+    skills into operational capacity for community nonprofits. Local charities often
+    face steep financial barriers when adopting new technologies, which diverts scarce
+    resources away from their core missions. By mobilizing a localized network of tech
+    professionals, Seattle GiveCamp solves this problem through concentrated weekend
+    hackathons. Key Impact: 150+ Charities Empowered over a decade of consistent
+    service. $500,000+ Injected Annually in pro bono developer, designer, and project
+    management labor. 100% Retained Funding — every digital solution provided allows
+    charities to keep funding focused on front-line services. Scalable Solutions
+    include custom database architecture, mobile applications, and modernized web
+    ecosystems.
+
+sponsor_value:
+  short: >
+    Sponsoring Seattle GiveCamp offers your company high-impact brand visibility among
+    hundreds of local tech professionals while fulfilling your corporate social
+    responsibility goals. Your investment directly funds the creation of vital digital
+    infrastructure for regional charities, turning corporate sponsorship into tangible
+    community empowerment.
+  long: >
+    Sponsoring Seattle GiveCamp positions your company at the center of the Pacific
+    Northwest tech community, delivering exceptional brand visibility to hundreds of
+    local developers, designers, and industry leaders. By backing our high-impact
+    hackathons, your organization generates immense community goodwill, as your
+    investment directly funds the digital infrastructure that regional charities need
+    to scale their vital services. Furthermore, it offers a powerful employee
+    engagement angle, providing your tech talent with a fulfilling corporate social
+    responsibility opportunity to collaborate, sharpen their skills, and give back
+    locally. Ultimately, your partnership transforms corporate sponsorship into a
+    measurable, lasting impact on both local tech culture and regional nonprofit
+    success.
+
+sponsorship_tiers:
+  - name: "Platinum"
+    amount: "$5,000"
+    benefits: "Premier logo placement on website and event materials, dedicated recruiting table, opportunity for 5-minute opening remarks, logo on event T-shirts, recognition in all social media and press releases"
+  - name: "Gold"
+    amount: "$2,500"
+    benefits: "Logo on website and event materials, recruiting table, logo on event T-shirts, recognition in social media and press releases"
+  - name: "Silver"
+    amount: "$1,000"
+    benefits: "Logo on website and event materials, logo on event T-shirts, recognition in social media"
+  - name: "Bronze"
+    amount: "$500"
+    benefits: "Logo on website, recognition in social media"
+
+default_tier: "Bronze"
+
+social:
+  linkedin: "https://www.linkedin.com/company/seattle-givecamp"
+  youtube: "https://www.youtube.com/user/SeattleGiveCamp"
+  facebook: ""
+  github: ""
+
+sponsorship_deck_url: "http://microshak.com/pitchdeck"
+
+# Agent behavior (Section 8)
+behavior:
+  default_tier: "Bronze"
+  attach_sponsorship_deck: false
+  how_did_you_hear: "Web search"
+  skip_on_w9_required: true
+  boilerplate_extra: ""
+  summary_email: "michael@seattlegivecamp.org"

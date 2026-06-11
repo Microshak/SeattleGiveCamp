@@ -1,0 +1,13 @@
+# ── Existing (from sponsorship-spider) ──────────────────────────────────
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# ── Email Monitor ──────────────────────────────────────────────────────
+msal>=1.24.0
+python-dotenv>=1.0.0
+openai>=1.0.0                # LM Studio OpenAI-compatible API
+pymilvus[milvus-lite]>=2.4.0  # Milvus Lite (embedded vector DB)
+sentence-transformers>=2.2.0  # all-MiniLM-L6-v2 embeddings
+python-telegram-bot>=20.0     # Telegram escalation & relay
+apscheduler>=3.10.0           # Scheduled polling
+gspread>=6.0.0                # Google Sheets API (sponsorship dedup)

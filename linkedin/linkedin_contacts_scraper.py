@@ -18,14 +18,11 @@ def login_linkedin(driver, username, password):
     time.sleep(3)
     print("[DEBUG] Logged into LinkedIn, landing page loaded.")
 
-def get_contacts(driver, max_contacts=50):
+def get_contacts(driver, page_num=1):
     '''
-    Uses LinkedIn search results filtered by location/network.
-    Scrapes listed people and paginates if needed.
-    Skips any usernames already found in linkedin_contacts.csv.
+    Scrapes all contacts from a single LinkedIn search results page.
     '''
     contacts = []
-    # Load processed usernames from CSV
     processed_usernames = set()
     out_file = "linkedin_contacts.csv"
     if os.path.exists(out_file):
@@ -39,80 +36,53 @@ def get_contacts(driver, max_contacts=50):
     search_url = (
         "https://www.linkedin.com/search/results/people/?geoUrn=%5B%22103317020%22%2C%22103255706%22%2C%22104145663%22%2C%22103463944%22%2C%22103977389%22%2C%2290000091%22%2C%22104116203%22%5D&network=%5B%22F%22%5D&origin=FACETED_SEARCH"
     )
+    if page_num > 1:
+        search_url += f"&page={page_num}"
     driver.get(search_url)
     time.sleep(4)
-    # Save search page for debugging if cards not found
-    try:
-        with open("search_debug.html", "w", encoding="utf-8") as f:
-            f.write(driver.page_source)
-        print("[DEBUG] Saved search page HTML to search_debug.html for inspection.")
-    except Exception as e:
-        print(f"[ERROR] Could not write search_debug.html: {e}")
-    total_scraped = 0
-
-    while total_scraped < max_contacts:
-        # New: Use LinkedIn's anti-scraping dynamic classnames workaround
-        # Find all cards using data-chameleon-result-urn (most stable)
-        people_cards = driver.find_elements(By.XPATH, "//div[@data-chameleon-result-urn]")
-        print(f"[DEBUG] Found {len(people_cards)} people cards with data-chameleon-result-urn on current search page.")
-        for card in people_cards:
-            # --- Improved name extraction for robustness ---
+    people_cards = driver.find_elements(By.XPATH, "//div[@data-chameleon-result-urn]")
+    print(f"[DEBUG] Found {len(people_cards)} people cards on page {page_num}.")
+    for card in people_cards:
+        # --- Improved name extraction for robustness ---
+        try:
+            # First, try strict: <a> with /in/, grab span[aria-hidden]
+            name_elem = card.find_element(By.XPATH, ".//a[contains(@href, '/in/')]//span[@aria-hidden='true']")
+            name = name_elem.text.strip()
+        except Exception:
             try:
-                # First, try strict: <a> with /in/, grab span[aria-hidden]
-                name_elem = card.find_element(By.XPATH, ".//a[contains(@href, '/in/')]//span[@aria-hidden='true']")
-                name = name_elem.text.strip()
+                # Fallback: get the <a> text content (sometimes includes extra, but good backup)
+                a_elem = card.find_element(By.XPATH, ".//a[contains(@href, '/in/')]")
+                name = a_elem.text.strip()
             except Exception:
-                try:
-                    # Fallback: get the <a> text content (sometimes includes extra, but good backup)
-                    a_elem = card.find_element(By.XPATH, ".//a[contains(@href, '/in/')]")
-                    name = a_elem.text.strip()
-                except Exception:
-                    name = ""
-            try:
-                # Location is in a <div> with t-normal and location-y class
-                location_elem = card.find_element(By.XPATH, ".//div[contains(@class, 't-normal') and contains(@class, 'AfYWBcJALseTYlgAgWShDEAOnbbteeRp')]")
-                location = location_elem.text.strip()
-            except Exception:
-                location = ""
-            try:
-                profile_anchor = card.find_element(By.XPATH, ".//a[contains(@href, '/in/') and @data-test-app-aware-link]")
-                profile_url = profile_anchor.get_attribute("href")
-                # Clean up tracking params etc
-                if profile_url:
-                    profile_url = profile_url.split("?")[0]
-                username = ""
-                u = profile_url.split("/in/")
-                if len(u) > 1:
-                    username = u[1].split("/")[0].split("?")[0]
-            except Exception:
-                profile_url = ""
-                username = ""
-            if not name or not profile_url or not username or username in processed_usernames:
-                continue
-            contacts.append({
-                "name": name,
-                "location": location,
-                "profile_url": profile_url,
-                "username": username
-            })
-            total_scraped += 1
-            if total_scraped >= max_contacts:
-                break
-
-        # Check for and click "Next" pagination button if more profiles needed
-        if total_scraped < max_contacts:
-            try:
-                next_btn = driver.find_element(By.XPATH, "//button[contains(@aria-label,'Next')]")
-                if next_btn.is_enabled():
-                    driver.execute_script("arguments[0].scrollIntoView();", next_btn)
-                    time.sleep(1)
-                    next_btn.click()
-                    time.sleep(3)
-                else:
-                    break
-            except Exception:
-                break  # No more pages
-
+                name = ""
+        try:
+            # Location is in a <div> with t-normal and location-y class
+            location_elem = card.find_element(By.XPATH, ".//div[contains(@class, 't-normal') and contains(@class, 'AfYWBcJALseTYlgAgWShDEAOnbbteeRp')]")
+            location = location_elem.text.strip()
+        except Exception:
+            location = ""
+        try:
+            profile_anchor = card.find_element(By.XPATH, ".//a[contains(@href, '/in/') and @data-test-app-aware-link]")
+            profile_url = profile_anchor.get_attribute("href")
+            # Clean up tracking params etc
+            if profile_url:
+                profile_url = profile_url.split("?")[0]
+            username = ""
+            u = profile_url.split("/in/")
+            if len(u) > 1:
+                username = u[1].split("/")[0].split("?")[0]
+        except Exception:
+            profile_url = ""
+            username = ""
+        if not name or not profile_url or not username or username in processed_usernames:
+            continue
+        contacts.append({
+            "name": name,
+            "location": location,
+            "profile_url": profile_url,
+            "username": username
+        })
+        processed_usernames.add(username)  # Add to processed to avoid duplicates in this run
     return contacts
 
 def get_profile_info(driver, profile_url):
@@ -179,10 +149,8 @@ def get_profile_info(driver, profile_url):
     return info
 
 def main():
-    print("LinkedIn Contacts Scraper")
+    print("LinkedIn Contacts Scraper (One Page Mode)")
     options = webdriver.ChromeOptions()
-    # Comment out headless mode for debugging
-    # options.add_argument('--headless=new')
     options.add_argument('--disable-gpu')
     options.add_argument('--window-size=1280,800')
     print("[DEBUG] Attempting to launch ChromeDriver...")
@@ -206,11 +174,18 @@ def main():
             print("[ERROR] LINKEDIN_USERNAME and LINKEDIN_PASSWORD must be set in your .env file.")
             return
 
-        login_linkedin(driver, username, password)
-        contacts = get_contacts(driver, max_contacts=500)  # Increased max, but will limit processed per run
-        print(f"Found {len(contacts)} contacts. Filtering and processing...")
+        # Read current page number from file
+        page_file = "current_page.txt"
+        if os.path.exists(page_file):
+            with open(page_file, "r") as f:
+                page_num = int(f.read().strip())
+        else:
+            page_num = 1
 
-        # Load already processed profile URLs
+        login_linkedin(driver, username, password)
+        contacts = get_contacts(driver, page_num=page_num)
+        print(f"Found {len(contacts)} contacts on page {page_num}. Filtering and processing...")
+
         out_file = "linkedin_contacts.csv"
         processed_urls = set()
         if os.path.exists(out_file):
@@ -222,23 +197,15 @@ def main():
                     if url:
                         processed_urls.add(url)
 
-        # Filter out any contacts already in the CSV, ensuring 0 duplicate viewing/scraping
         to_process_contacts = [c for c in contacts if c["profile_url"] not in processed_urls]
 
-        # Save header if file is new/empty
         if not os.path.exists(out_file) or os.stat(out_file).st_size == 0:
             with open(out_file, "w", encoding="utf-8") as f:
                 f.write("Name,Location,Profile URL,Username,Headline,Email\n")
 
-        max_profiles = 50
-        contacts_processed = 0
         for c in to_process_contacts:
-            if contacts_processed >= max_profiles:
-                print("Daily profile view limit reached (50). You can run the script again tomorrow for more.")
-                break
             print(f"Visiting profile: {c['profile_url']}")
             profile_info = get_profile_info(driver, c["profile_url"])
-            # Save immediately
             with open(out_file, "a", encoding="utf-8") as f:
                 f.write(
                     f'"{profile_info.get("name","")}",'
@@ -249,9 +216,13 @@ def main():
                     f'"{profile_info.get("email","")}"\n'
                 )
             processed_urls.add(c["profile_url"])
-            contacts_processed += 1
             print(f"Saved: {profile_info.get('name','')} ({profile_info.get('location','')})")
-        print(f"Contacts exported/updated in {out_file} (processed {contacts_processed} today)")
+        print(f"Contacts exported/updated in {out_file} (processed {len(to_process_contacts)} from page {page_num})")
+
+        # Save next page number for next run
+        with open(page_file, "w") as f:
+            f.write(str(page_num + 1))
+
     finally:
         if driver:
             driver.quit()

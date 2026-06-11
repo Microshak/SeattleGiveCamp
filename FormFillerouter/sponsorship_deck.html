@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seattle GiveCamp — Sponsorship Deck 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            padding: 60px;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Cover Page */
+        .cover {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a5f7a 0%, #2c8da8 50%, #57b894 100%);
+            color: white;
+        }
+
+        .cover h1 {
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .cover .tagline {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cover .event-details {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px 50px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .cover .event-details p {
+            font-size: 1.2em;
+            margin: 8px 0;
+        }
+
+        .cover .year-badge {
+            position: absolute;
+            top: 40px;
+            right: 50px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        /* Content Pages */
+        h2 {
+            color: #1a5f7a;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #57b894;
+        }
+
+        h3 {
+            color: #2c8da8;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+        }
+
+        p {
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f9f6 0%, #e6f4f1 100%);
+            border-left: 5px solid #57b894;
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 35px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a5f7a 0%, #2c8da8 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Tiers */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .tier-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card.featured {
+            border-color: #57b894;
+            background: linear-gradient(135deg, #f0f9f6 0%, #ffffff 100%);
+            box-shadow: 0 8px 30px rgba(87, 184, 148, 0.15);
+        }
+
+        .tier-card.platinum {
+            border-color: #b8a88a;
+            background: linear-gradient(135deg, #faf8f5 0%, #ffffff 100%);
+        }
+
+        .tier-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .tier-amount {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: #1a5f7a;
+            margin-bottom: 15px;
+        }
+
+        .tier-card.platinum .tier-amount {
+            color: #8a7a5a;
+        }
+
+        .tier-card.featured .tier-amount {
+            color: #3a9a7a;
+        }
+
+        .tier-benefits {
+            list-style: none;
+        }
+
+        .tier-benefits li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95em;
+        }
+
+        .tier-benefits li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #57b894;
+            font-weight: bold;
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #57b894;
+            color: white;
+            padding: 5px 18px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .tier-card.platinum .tier-badge {
+            background: #b8a88a;
+        }
+
+        /* Impact Section */
+        .impact-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .impact-list li {
+            padding: 15px 0 15px 40px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+            font-size: 1.05em;
+        }
+
+        .impact-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 10px;
+            color: #57b894;
+            font-size: 1.4em;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: linear-gradient(135deg, #1a5f7a 0%, #2c8da8 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .contact-box h3 {
+            color: white;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .cover .page-footer {
+            color: rgba(255,255,255,0.7);
+            border-top-color: rgba(255,255,255,0.2);
+        }
+
+        /* Value Prop */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .value-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-top: 4px solid #57b894;
+        }
+
+        .value-card h4 {
+            color: #1a5f7a;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1: Cover -->
+    <div class="page cover">
+        <div class="year-badge">2026 Event</div>
+        <h1>Seattle GiveCamp</h1>
+        <p class="tagline">Pro Bono Technology for Nonprofits</p>
+        <div class="event-details">
+            <p><strong>15th Annual Hackathon</strong></p>
+            <p>October 17th, 2026</p>
+            <p>Redmond, WA</p>
+        </div>
+        <div class="page-footer">
+            <span>seattlegivecamp.org</span>
+            <span>501(c)(3) Nonprofit | EIN: 47-2723225</span>
+        </div>
+    </div>
+
+    <!-- Page 2: About & Mission -->
+    <div class="page">
+        <h2>About Seattle GiveCamp</h2>
+        <p>Seattle GiveCamp is a volunteer-led, registered 501(c)(3) nonprofit organization dedicated to providing pro bono software development and technology solutions to Seattle-area charities. By hosting high-impact, weekend-long hackathons, the organization brings together local software developers, designers, database administrators, and project managers to build websites, mobile apps, and custom database tools for nonprofits that lack dedicated tech budgets.</p>
+        
+        <p>Since 2011, Seattle GiveCamp has supported over 150 local organizations, transforming community goodwill into functional digital tools and delivering hundreds of thousands of dollars in professional technical services back into the regional nonprofit ecosystem.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">150+</span>
+                <span class="stat-label">Charities Empowered</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">$500K+</span>
+                <span class="stat-label">Value Delivered Annually</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">15</span>
+                <span class="stat-label">Years Running</span>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>Our Mission:</strong> To provide pro bono software development to Seattle-area non-profits, bridging the tech equity gap and enabling charities to focus their resources on front-line community services rather than expensive IT overhead.
+        </div>
+
+        <div class="page-footer">
+            <span>Seattle GiveCamp</span>
+            <span>Sponsorship Deck 2026</span>
+        </div>
+    </div>
+
+    <!-- Page 3: Impact -->
+    <div class="page">
+        <h2>Impact & Outcomes</h2>
+        <p>Seattle GiveCamp bridges the tech equity gap by translating professional technical skills into operational capacity for community nonprofits. Local charities often face steep financial barriers when adopting new technologies, which diverts scarce resources away from their core missions. By mobilizing a localized network of tech professionals, Seattle GiveCamp solves this problem through concentrated weekend hackathons.</p>
+
+        <h3>Key Impact Metrics</h3>
+        <ul class="impact-list">
+            <li><strong>150+ Charities Empowered:</strong> Over a decade of consistent service, optimizing operational efficiency for small-to-medium regional nonprofits.</li>
+            <li><strong>$500,000+ Injected Annually:</strong> Hundreds of hours of pro bono developer, designer, and project management labor are delivered directly into the local economy every year.</li>
+            <li><strong>100% Retained Funding:</strong> Every digital solution provided allows the receiving charities to keep their funding focused on front-line community services rather than expensive IT overhead.</li>
+        </ul>
+
+        <h3>Scalable Solutions Delivered</h3>
+        <div class="value-grid">
+            <div class="value-card">
+                <h4>Custom Database Architecture</h4>
+                <p>Organizes donor lists and streamlines volunteer tracking for better organizational outreach.</p>
+            </div>
+            <div class="value-card">
+                <h4>Mobile Applications</h4>
+                <p>Builds front-facing tools that help charities connect directly with the vulnerable populations they serve.</p>
+            </div>
+            <div class="value-card">
+                <h4>Modernized Web Ecosystems</h4>
+                <p>Creates secure, responsive websites that increase local fundraising capacity and digital visibility.</p>
+            </div>
+            <div class="value-card">
+                <h4>Data & Analytics Tools</h4>
+                <p>Empowers nonprofits to measure impact, track outcomes, and make data-driven decisions.</p>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>Seattle GiveCamp</span>
+            <span>Sponsorship Deck 2026</span>
+        </div>
+    </div>
+
+    <!-- Page 4: Sponsor Value -->
+    <div class="page">
+        <h2>Why Sponsor Seattle GiveCamp?</h2>
+        <p>Sponsoring Seattle GiveCamp positions your company at the center of the Pacific Northwest tech community, delivering exceptional brand visibility to hundreds of local developers, designers, and industry leaders. By backing our high-impact hackathons, your organization generates immense community goodwill, as your investment directly funds the digital infrastructure that regional charities need to scale their vital services.</p>
+
+        <div class="highlight-box">
+            <strong>High-Impact Brand Visibility:</strong> Reach hundreds of local tech professionals, from senior engineers to emerging talent, in a positive, community-focused environment.
+        </div>
+
+        <h3>Sponsor Benefits</h3>
+        <div class="value-grid">
+            <div class="value-card">
+                <h4>🎯 Brand Visibility</h4>
+                <p>Logo placement on website, event materials, and T-shirts worn by volunteers and nonprofit partners throughout the year.</p>
+            </div>
+            <div class="value-card">
+                <h4>🤝 Community Goodwill</h4>
+                <p>Demonstrate corporate social responsibility by directly funding vital digital infrastructure for regional charities.</p>
+            </div>
+            <div class="value-card">
+                <h4>💼 Recruiting Access</h4>
+                <p>Dedicated recruiting tables and direct access to passionate, skilled technologists who care about community impact.</p>
+            </div>
+            <div class="value-card">
+                <h4>👥 Employee Engagement</h4>
+                <p>Provide your tech talent with a fulfilling CSR opportunity to collaborate, sharpen skills, and give back locally.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; text-align: center; font-style: italic; color: #666;">"Your partnership transforms corporate sponsorship into a measurable, lasting impact on both local tech culture and regional nonprofit success."</p>
+
+        <div class="page-footer">
+            <span>Seattle GiveCamp</span>
+            <span>Sponsorship Deck 2026</span>
+        </div>
+    </div>
+
+    <!-- Page 5: Sponsorship Tiers -->
+    <div class="page">
+        <h2>Sponsorship Tiers</h2>
+        <p>Partner with us at a level that fits your organization's goals. Each tier offers meaningful visibility and engagement opportunities while directly funding technology solutions for local nonprofits.</p>
+
+        <div class="tiers-grid">
+            <div class="tier-card platinum">
+                <span class="tier-badge">1 Available</span>
+                <div class="tier-name">Platinum</div>
+                <div class="tier-amount">$5,000</div>
+                <ul class="tier-benefits">
+                    <li>Premier logo placement on website and all event materials</li>
+                    <li>Dedicated recruiting table at the event</li>
+                    <li>Opportunity for 5-minute opening remarks</li>
+                    <li>Logo on event T-shirts</li>
+                    <li>Recognition in all social media and press releases</li>
+                </ul>
+            </div>
+
+            <div class="tier-card featured">
+                <span class="tier-badge">2 Available</span>
+                <div class="tier-name">Gold</div>
+                <div class="tier-amount">$2,500</div>
+                <ul class="tier-benefits">
+                    <li>Logo on website and event materials</li>
+                    <li>Recruiting table at the event</li>
+                    <li>Logo on event T-shirts</li>
+                    <li>Recognition in social media and press releases</li>
+                </ul>
+            </div>
+
+            <div class="tier-card">
+                <span class="tier-badge">3 Available</span>
+                <div class="tier-name">Silver</div>
+                <div class="tier-amount">$1,000</div>
+                <ul class="tier-benefits">
+                    <li>Logo on website and event materials</li>
+                    <li>Logo on event T-shirts</li>
+                    <li>Recognition in social media</li>
+                </ul>
+            </div>
+
+            <div class="tier-card">
+                <span class="tier-badge">4 Available</span>
+                <div class="tier-name">Bronze</div>
+                <div class="tier-amount">$500</div>
+                <ul class="tier-benefits">
+                    <li>Logo on website</li>
+                    <li>Recognition in social media</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 30px;">
+            <strong>Custom Partnerships:</strong> Interested in a unique collaboration? We're happy to discuss in-kind donations, volunteer teams, or custom sponsorship packages tailored to your organization's goals.
+        </div>
+
+        <div class="page-footer">
+            <span>Seattle GiveCamp</span>
+            <span>Sponsorship Deck 2026</span>
+        </div>
+    </div>
+
+    <!-- Page 6: Contact / Closing -->
+    <div class="page">
+        <h2>Let's Build Something Together</h2>
+        <p>Join us in empowering Seattle-area nonprofits with the technology they need to thrive. Your sponsorship doesn't just fund an event—it creates lasting digital infrastructure that helps charities serve their communities more effectively for years to come.</p>
+
+        <div class="highlight-box">
+            <strong>Seattle GiveCamp 2026</strong><br>
+            October 17th, 2026 · Redmond, WA<br>
+            15th Annual Hackathon · 100+ Volunteers · 8+ Nonprofits Served
+        </div>
+
+        <div class="contact-box">
+            <h3>Contact Us</h3>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <strong>Primary Contact</strong>
+                    Mike Roshak<br>
+                    Membership Coordinator
+                </div>
+                <div class="contact-item">
+                    <strong>Email</strong>
+                    michael@seattlegivecamp.org
+                </div>
+                <div class="contact-item">
+                    <strong>Phone</strong>
+                    (425) 405-0301
+                </div>
+                <div class="contact-item">
+                    <strong>Website</strong>
+                    seattlegivecamp.org
+                </div>
+                <div class="contact-item">
+                    <strong>LinkedIn</strong>
+                    linkedin.com/company/seattle-givecamp
+                </div>
+                <div class="contact-item">
+                    <strong>YouTube</strong>
+                    youtube.com/user/SeattleGiveCamp
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 12px;">
+            <p style="font-size: 1.2em; color: #1a5f7a; font-weight: 600; margin-bottom: 10px;">Seattle GiveCamp is a registered 501(c)(3) nonprofit organization</p>
+            <p style="color: #666;">EIN: 47-2723225 · All donations are tax-deductible</p>
+        </div>
+
+        <div class="page-footer">
+            <span>Seattle GiveCamp</span>
+            <span>Sponsorship Deck 2026</span>
+        </div>
+    </div>
+
+</body>
+</html>

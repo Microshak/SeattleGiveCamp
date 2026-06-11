@@ -1,0 +1,39 @@
+# =============================================================================
+# Seattle GiveCamp — Target Company List & Google Sheet Config
+# Auto-generated from mikeTODO.md on 2026-06-06
+# =============================================================================
+
+google_sheet:
+  url: "https://docs.google.com/spreadsheets/d/1B4YouiAPKy_kRUdYcjxtpPk7zKpdURdoSncXSNjIFc0/edit?usp=sharing"
+  service_account_file: "../GMailer/seattlegivecamp-1373-0bf9a18afc34.json"
+  forms_tab: "Forms"
+  tracking_tab: "Tracking"
+
+# ── Forms Tab Layout ────────────────────────────────────────────────────
+# Columns: Company | URL | Notes
+# The agent reads all rows from this tab to get target companies.
+forms_tab_layout:
+  company_col: 0    # Column A — Company name
+  url_col: 1        # Column B — Company URL
+  notes_col: 2      # Column C — Notes (optional, e.g. "Has a grants page")
+
+# ── Tracking Tab Layout ─────────────────────────────────────────────────
+# Columns: Company | Agent | URL (or email)
+# Used for dedup: if a company's URL already appears in column C, skip it.
+tracking_tab_layout:
+  company_col: 0    # Column A — Company name
+  agent_col: 1      # Column B — Agent name (e.g. "Mike")
+  url_col: 2        # Column C — Company URL (or email)
+
+# ── Dedup / Skip Logic ──────────────────────────────────────────────────
+# Before submitting a form for a company, check the Tracking tab:
+# if the company's URL appears in column C → skip.
+# After successful submission, append: [company_name, "Mike", company_url]
+
+tracking:
+  agent_name: "Mike"
+  dedup_on_column: 2  # Column C in tracking tab
+
+# ── Fallback targets (used if Google Sheet is unreachable) ──────────────
+# These are read only when the sheet can't be reached.
+fallback_targets: []

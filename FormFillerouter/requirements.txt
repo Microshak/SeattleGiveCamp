@@ -1,0 +1,17 @@
+# FormFillerouter — Sponsorship Form Agent
+# Core dependencies
+
+# YAML config parsing
+pyyaml>=6.0
+
+# Google Sheets integration
+gspread>=6.0.0
+
+# LLM client (OpenAI-compatible API)
+openai>=1.0.0
+
+# Browser automation
+playwright>=1.40.0
+
+# Environment variable loading
+python-dotenv>=1.0.0
