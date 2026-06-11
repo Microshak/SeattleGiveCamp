@@ -160,3 +160,42 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+linkedin/linkedin_contacts.csv
+Fundraising/mail_service/token_cache.bin
+
+# Sensitive / generated data and local artifacts
+*.csv
+*.json
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.key
+*.pem
+*.p12
+*.crt
+*.cer
+*.env
+.env.*
+*.bin
+token_cache.bin
+
+# Local caches, outputs, and large generated folders
+logs/
+models/
+screenshots/
+output/
+data/
+secrets/
+credentials/
+Fundraising/.opencode/
+Fundraising/sponsorship-spider/output/
+Fundraising/mail_service/data/
+Fundraising/mail_service/email_monitor/*.db
+Fundraising/mail_service/email_monitor/kb_hashes.json
+Fundraising/mail_service/mail_service/email_monitor/thread_store.db
+Fundraising/mail_service/email_monitor/milvus_lite.db/
+Fundraising/opencode.json
+Fundraising/Assets/.~lock.seattle_givecamp_onepager.docx#
+logs/submissions.db
+*.db
